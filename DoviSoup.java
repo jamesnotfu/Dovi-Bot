@@ -91,11 +91,11 @@ public class DoviSoup extends JFrame {
                 "          \" 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2\"";
             String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp";
             String loginActionUrl = "https://icampus.dublinusd.org/campus/portal/main.xsl";
-            String username = "bruhhelp96";
-            String password = "66996996";
+            String username = "id_number";
+            String password = "enter_password";
 
-            HashMap <String, String > cookies = new HashMap<>();
-            HashMap <String, String > formData = new HashMap<>();
+            HashMap <String, String> cookies = new HashMap<>();
+            HashMap <String, String> formData = new HashMap<>();
 
             Connection.Response loginForm = Jsoup
                 .connect(loginFormUrl)
@@ -104,13 +104,25 @@ public class DoviSoup extends JFrame {
                 .execute();
 
             Document loginDoc = loginForm.parse();
-
+            
             cookies.putAll(loginForm.cookies());
-
             formData.put("appName", "dublin");
             formData.put("username", username);
             formData.put("password", password);
+            formData.put("x", "52");
+            formData.put("y", "9");
 
+            System.out.println("\n-----------------   Cookie Information   ------------------\n");
+                                 
+            for (Map.Entry<String, String> entry: cookies.entrySet()) {
+                System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+            }
+            for (Map.Entry<String, String> entry: formData.entrySet()) {
+                System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+            }
+            
+            System.out.println("\n-----------------------------------------------------------\n");
+            
             Connection.Response homePage = Jsoup.connect(loginActionUrl)
                 .cookies(cookies)
                 .data(formData)
@@ -119,7 +131,7 @@ public class DoviSoup extends JFrame {
                 .execute();
 
             System.out.println(homePage.parse().html());
-
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
