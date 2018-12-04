@@ -74,38 +74,53 @@ public class DoviSoup extends JFrame {
     }
 
     public void botSay(String s) {
-      
+
         txtChat.append("Dovi: " + s + "\n");
-        
+
     }
 
     public static void main(String[] args) {
-      
+
         try {
-            Connection.Response loginForm = Jsoup.connect("https://icampus.dublinusd.org/campus/portal/dublin.jsp")
+            Connection.Response initial = Jsoup
+                .connect("https://icampus.dublinusd.org/campus/portal/dublin.jsp")
                 .method(Connection.Method.GET)
                 .execute();
 
-            Map < String, String > loginCookies = loginForm.cookies();
+            final String USER_AGENT = "\"Mozilla/5.0 (Windows NT\" +\n" +
+                "          \" 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2\"";
+            String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp";
+            String loginActionUrl = "https://icampus.dublinusd.org/campus/portal/main.xsl";
+            String username = "bruhhelp96";
+            String password = "66996996";
 
-            Document document = Jsoup
-                .connect("https://icampus.dublinusd.org/campus/portal/dublin.jsp")
-                .data("appName", "dublin")
-                .data("portalUrl", "portal/dublin.jsp?&rID=0.2524237061868373")
-                .data("url", "portal/main.xsl?rID=0.5050179116808896")
-                .data("username", "enteruridlolz")
-                .data("password", "enterurcampuspassword")
-                .cookies(loginCookies)
-                .post();
+            HashMap <String, String > cookies = new HashMap<>();
+            HashMap <String, String > formData = new HashMap<>();
 
-            Document document2 = Jsoup.connect("https://icampus.dublinusd.org/campus/portal/main.xsl")
-                .cookies(loginCookies)
-                .get();
+            Connection.Response loginForm = Jsoup
+                .connect(loginFormUrl)
+                .method(Connection.Method.GET)
+                .userAgent(USER_AGENT)
+                .execute();
 
-            System.out.println(document2);
-        }
-        
-        catch (IOException e) {
+            Document loginDoc = loginForm.parse();
+
+            cookies.putAll(loginForm.cookies());
+
+            formData.put("appName", "dublin");
+            formData.put("username", username);
+            formData.put("password", password);
+
+            Connection.Response homePage = Jsoup.connect(loginActionUrl)
+                .cookies(cookies)
+                .data(formData)
+                .method(Connection.Method.POST)
+                .userAgent(USER_AGENT)
+                .execute();
+
+            System.out.println(homePage.parse().html());
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
