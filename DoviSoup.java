@@ -89,10 +89,10 @@ public class DoviSoup extends JFrame {
 
             final String USER_AGENT = "\"Mozilla/5.0 (Windows NT\" +\n" +
                 "          \" 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2\"";
-            String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp";
-            String loginActionUrl = "https://icampus.dublinusd.org/campus/portal/main.xsl";
-            String username = "id_number";
-            String password = "enter_password";
+            String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp?&rID=0.35474151047143077";
+            String loginActionUrl = "https://icampus.dublinusd.org/campus/portal/main.xsl?rID=0.47572164212458934";
+            String username = "";
+            String password = "";
 
             HashMap <String, String> cookies = new HashMap<>();
             HashMap <String, String> formData = new HashMap<>();
@@ -107,18 +107,26 @@ public class DoviSoup extends JFrame {
             
             cookies.putAll(loginForm.cookies());
             formData.put("appName", "dublin");
+            formData.put("portalUrl", "portal/dublin.jsp");
             formData.put("username", username);
             formData.put("password", password);
             formData.put("x", "52");
             formData.put("y", "9");
+            formData.put("url", "portal/main.xsl");
+            formData.put("lang", "en");
+            formData.put("useCSRFProtection", "true");
+            formData.put("hide", "Hide");
+            formData.put("forgotUsername", "Forgot your username?");
+            formData.put("forgotPassword", "Forgot your password?");
+            formData.put("problems", "Problems logging in?");
 
             System.out.println("\n-----------------   Cookie Information   ------------------\n");
                                  
             for (Map.Entry<String, String> entry: cookies.entrySet()) {
-                System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+                System.out.println(entry.getKey() + ": " + entry.getValue().toString());
             }
             for (Map.Entry<String, String> entry: formData.entrySet()) {
-                System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+                System.out.println(entry.getKey() + ": " + entry.getValue().toString());
             }
             
             System.out.println("\n-----------------------------------------------------------\n");
