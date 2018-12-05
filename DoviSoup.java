@@ -90,8 +90,8 @@ public class DoviSoup extends JFrame {
             final String USER_AGENT = "\"Mozilla/5.0 (Windows NT\" +\n" +
                 "          \" 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2\"";
             
-            String username = "57548";
-            String password = "thispasswordissecurelinuxuser101";
+            String username = "";
+            String password = "";
 
             String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp";
             String loginActionUrl = "https://icampus.dublinusd.org/campus/verify.jsp?appName=dublin&screen=&username=" + username +" + &password=" + password + "&x=52&y=9&useCSRFProtection=true";
