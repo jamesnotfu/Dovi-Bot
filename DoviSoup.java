@@ -89,8 +89,8 @@ public class DoviSoup extends JFrame {
 
             final String USER_AGENT = "\"Mozilla/5.0 (Windows NT\" +\n" +
                 "          \" 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2\"";
-            String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp?&rID=0.35474151047143077";
-            String loginActionUrl = "https://icampus.dublinusd.org/campus/portal/main.xsl?rID=0.47572164212458934";
+            String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp";
+            String loginActionUrl = "https://icampus.dublinusd.org/campus/portal/main.xsl";
             String username = "";
             String password = "";
 
