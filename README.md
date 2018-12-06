@@ -1,8 +1,8 @@
 # dovi-bot
 A bot dedicated to Rebecca Dovi, the greatest computer science teacher of all time.
 
-## features
+## Features
 
-## how it works
+## How it works
 
 Utilizes JSoup, which remotely logs into Campus Portal and tells you things based on your grades.
