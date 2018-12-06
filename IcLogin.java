@@ -8,6 +8,8 @@ import org.jsoup.select.*;
 
 public class IcLogin {
   
+  //////////////////////////////// methods /////////////////////////////////////////
+  
   public static void attempt(String user, String pass) {
     try {
       Connection.Response initial = Jsoup
@@ -17,10 +19,8 @@ public class IcLogin {
       final String USER_AGENT = "\"Mozilla/5.0 (Windows NT\" +\n" +
         "          \" 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2\"";
       
-      String username = "";
-      String password = "";
       String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp";
-      String loginActionUrl = "https://icampus.dublinusd.org/campus/verify.jsp?nonBrowser=true&username=" + username + "&password=" + password + "&appName=" + "dublin";
+      String loginActionUrl = "https://icampus.dublinusd.org/campus/verify.jsp?nonBrowser=true&username=" + user + "&password=" + pass + "&appName=" + "dublin";
 
       HashMap <String, String> cookies = new HashMap<>();
       HashMap <String, String> formData = new HashMap<>();
@@ -36,8 +36,8 @@ public class IcLogin {
       cookies.putAll(loginForm.cookies());
       formData.put("appName", "dublin");
       formData.put("portalUrl", "portal/dublin.jsp");
-      formData.put("username", username);
-      formData.put("password", password);
+      formData.put("username", user);
+      formData.put("password", pass);
 
       System.out.println("\n-----------------   Cookie Information   ------------------\n");
 
@@ -62,14 +62,13 @@ public class IcLogin {
       System.out.println(homePage.parse().html());
 
       Connection.Response gradesView = Jsoup
-        .connect("https://icampus.dublinusd.org/campus/prism?x=portal.PortalOutline&lang=en&X-XSRF-TOKEN=1c0ba929-f45e-4647-b21b-89a58ef1b73b&personType=student&context=9176-247-230&personID=9176&studentFirstName=James&lastName=Fu&firstName=James&schoolID=7&calendarID=247&structureID=230&calendarName=18-19%20Dublin%20High%20School&mode=grades&x=portal.PortalGrades&X-XSRF-TOKEN=1c0ba929-f45e-4647-b21b-89a58ef1b73b")
+        .connect("https://icampus.dublinusd.org/campus/prism?nonBrowser=true&x=portal.PortalOutline&lang=en&personType=student&personID=9176&studentFirstName=James&lastName=Fu&firstName=James&schoolID=7&calendarID=247&structureID=230&calendarName=18-19%20Dublin%20High%20School&mode=grades&x=portal.PortalGrades")
         .cookies(cookies)
-        .data(formData)
         .method(Connection.Method.POST)
         .userAgent(USER_AGENT)
         .execute();
 
-      System.out.println(homePage.parse().html());
+      System.out.println(gradesView.parse().html());
 
   } catch (IOException e) {
       e.printStackTrace();
