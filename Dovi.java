@@ -1,83 +1,67 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.*;
+import java.io.*;
 
-// java gui
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+// gui
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.image.*;
+import java.awt.event.*;
 
 public class Dovi extends JFrame {
- //Typing Area:
- private JTextField txtEnter = new JTextField();
- //Chat Area:
- private JTextArea txtChat = new JTextArea();
- 
- public Dovi() {
-  //Frame Attributes:
-  this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  this.setSize(600, 615);
-  this.setVisible(true);
-  this.setResizable(false);
-  this.setLayout(null);
-  this.setTitle("");
   
-  //txtEnter Attributes:
-  txtEnter.setLocation(15, 540);
-  txtEnter.setSize(560, 30);
+  //////////////////////////////// instance vars /////////////////////////////////////////
   
-  //txtEnter Action Event:
-  txtEnter.addActionListener(new ActionListener(){
-   public void actionPerformed(ActionEvent arg0) {
-    String uText = txtEnter.getText();
-    txtChat.append("You: " + uText + "\n");
+  private JTextField txtEnter = new JTextField(); // typing area
+  private JTextArea txtChat = new JTextArea(); // chat area
+  private String user = ""; // private variable to store the username
+  private String pass = ""; // private variable to store the password
+  
+  ///////////////////////////////// ctors ////////////////////////////////////////////////
+  
+  public Dovi() {
     
-    if(uText.contains("hi")){
-     botSay("Hello there!");
-    }
-    else if(uText.contains("how are you")){
-     int decider = (int) (Math.random()*3+1);
-     if(decider == 1){
-      botSay("I'm doing well, thanks");
-     }
-     else if(decider == 2){
-      botSay("Not too bad");
-     }
-     else if(decider == 3) {
-       botSay("I'm doing better than you lol");
-     }
-    }
-    else{
-     int decider = (int) (Math.random()*3+1);
-     if(decider == 1){
-      botSay("I didn't get that");
-     }
-     else if(decider == 2){
-      botSay("Please rephrase that");
-     }
-     else if(decider == 3){
-      botSay("???");
-     }
-    }
-    txtEnter.setText("");
-   }
-  });
+    // general gui config
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setSize(600, 615);
+    this.setVisible(true);
+    this.setResizable(false);
+    this.setLayout(null);
+    this.setTitle("Dovi");
+    
+    txtEnter.setLocation(15, 540);
+    txtEnter.setSize(560, 30);
+    txtChat.setLocation(15, 15);
+    txtChat.setSize(560, 510);
+    txtChat.setEditable(false);
+    
+    this.add(txtEnter);
+    this.add(txtChat);
+        
+    // chatbot stuff
+    txtChat.append("Ms. Dovi: Hi. Welcome to AP Computer Science.\n");
+    txtChat.append("Ms. Dovi: My job as a teacher is to ensure that you achieve academic success.\n\nEnter 'L' to login to Campus Portal.\n"); 
+    // chat entered
+    txtEnter.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent arg0) {
+        String uText = txtEnter.getText();
+        txtChat.append("You: " + uText + "\n");
+        
+        if(uText.contains("L")) login();
+        
+        txtEnter.setText("");
+      }
+    });
+  }
   
-  //txtChat Attributes:
-  txtChat.setLocation(15, 15);
-  txtChat.setSize(560, 510);
-  txtChat.setEditable(false);
+  ////////////////////////////////// methods /////////////////////////////////////////////
   
-  //Add Items To Frame:
-  this.add(txtEnter);
-  this.add(txtChat);
- }
- 
- public void botSay(String s){
-  txtChat.append("Dovi: " + s + "\n");
- }
- 
- public static void main(String[] args){
-  new Dovi();
- }
+  public static void main(String[] args) {
+    new Dovi();
+  }
+  
+  public void login() {
+    IcLogin.attempt(user, pass);
+  }
 
 }
