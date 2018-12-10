@@ -8,9 +8,23 @@ import org.jsoup.select.*;
 
 public class IcLogin {
   
+  //////////////////////////////// main method /////////////////////////////////////
+  
+  // remove after testing
+  public static void main(String[] args) {
+    // add username and password below to test login
+    attempt("", "");
+  }
+  
   //////////////////////////////// methods /////////////////////////////////////////
   
+  /**
+   * attempts remote login onto IC; helper method for the Dovi.java class.
+   * you may Have to manually change the gradesView URL for it to work for your user specifically.
+   * @param username and password in a string format.
+   */
   public static void attempt(String user, String pass) {
+    
     try {
       Connection.Response initial = Jsoup
         .connect("https://icampus.dublinusd.org/campus/portal/dublin.jsp")
@@ -22,8 +36,8 @@ public class IcLogin {
       String loginFormUrl = "https://icampus.dublinusd.org/campus/portal/dublin.jsp";
       String loginActionUrl = "https://icampus.dublinusd.org/campus/verify.jsp?nonBrowser=true&username=" + user + "&password=" + pass + "&appName=" + "dublin";
 
-      HashMap <String, String> cookies = new HashMap<>();
-      HashMap <String, String> formData = new HashMap<>();
+      HashMap<String, String> cookies = new HashMap<>();
+      HashMap<String, String> formData = new HashMap<>();
       
       Connection.Response loginForm = Jsoup
         .connect(loginFormUrl)
@@ -33,24 +47,15 @@ public class IcLogin {
 
       Document loginDoc = loginForm.parse();
       
-      cookies.putAll(loginForm.cookies());
+      for(Map.Entry<String, String> cookie : loginForm.cookies().entrySet()) {
+        cookies.put(cookie.getKey(), cookie.getValue());
+      }
+      
       formData.put("appName", "dublin");
       formData.put("portalUrl", "portal/dublin.jsp");
       formData.put("username", user);
       formData.put("password", pass);
 
-      System.out.println("\n-----------------   Cookie Information   ------------------\n");
-
-      for (Map.Entry < String, String > entry: cookies.entrySet()) {
-        System.out.println(entry.getKey() + ": " + entry.getValue().toString());
-      }
-      
-      for (Map.Entry < String, String > entry: formData.entrySet()) {
-        System.out.println(entry.getKey() + ": " + entry.getValue().toString());
-      }
-
-      System.out.println("\n-----------------------------------------------------------\n");
-      
       Connection.Response homePage = Jsoup
         .connect(loginActionUrl)
         .cookies(cookies)
@@ -58,9 +63,14 @@ public class IcLogin {
         .method(Connection.Method.POST)
         .userAgent(USER_AGENT)
         .execute();
+      
+      // adding the cookies from the homepage
+      for(Map.Entry<String, String> cookie : homePage.cookies().entrySet()) {
+        cookies.put(cookie.getKey(), cookie.getValue());
+      }
 
       System.out.println(homePage.parse().html());
-
+      
       Connection.Response gradesView = Jsoup
         .connect("https://icampus.dublinusd.org/campus/prism?nonBrowser=true&x=portal.PortalOutline&lang=en&personType=student&personID=9176&studentFirstName=James&lastName=Fu&firstName=James&schoolID=7&calendarID=247&structureID=230&calendarName=18-19%20Dublin%20High%20School&mode=grades&x=portal.PortalGrades")
         .cookies(cookies)
@@ -70,8 +80,9 @@ public class IcLogin {
 
       System.out.println(gradesView.parse().html());
 
-  } catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
+    }
   }
-}
+  
 }
