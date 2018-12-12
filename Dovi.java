@@ -53,7 +53,7 @@ if (uText.contains("L")) {
  txtEnter.setText("");
  login();
 
-} else if (uText.contains("hi")) {
+} else if (uText.contains("hi")|| uText.contains("hello")) {
  botSay("Hello there!");
 
 } else if (uText.contains("how are you")) {
@@ -179,6 +179,7 @@ public void randomResponse() {
 	list.add("I didn’t get that.");
 	list.add("Can you be more specific?");
 	list.add("Please rephrase that.");
+	Random rand = new Random();
 int n = rand.nextInt(10);
 botSay(list.get(n));
 }
