@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=IcLogin
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=user\ pass
+comment2.target=void\ attempt(java.lang.String,\ java.lang.String)
+comment2.text=\n\ attempts\ remote\ login\ onto\ IC;\ helper\ method\ for\ the\ Dovi.java\ class.\n\ you\ may\ Have\ to\ manually\ change\ the\ gradesView\ URL\ for\ it\ to\ work\ for\ your\ user\ specifically.\n\ @param\ username\ and\ password\ in\ a\ string\ format.\n
+numComments=3
