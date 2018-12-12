@@ -15,7 +15,7 @@ public class Dovi extends JFrame {
     public String pass = ""; // private variable to store the password
     private String rv = ""; // return value for method
 
-    ///////////////////////////////// ctors ////////////////////////////////////////////////
+    ///////////////////////////////// constructors ////////////////////////////////////////////////
 
     /**
      * default constuctor, creates GUI environment and checks if text is entered.
@@ -165,11 +165,23 @@ public class Dovi extends JFrame {
     }
 
     ////////////////////////////////// methods /////////////////////////////////////////////
+   
+   /**
+   * This method is used to display what the chatbot output.
+   * @param s This is the output of the chatbot
+   * @return none
+   */
     
     public void botSay(String s) {
         txtChat.append("Dovi: " + s + "\n");
     }
-
+    
+   /**
+   * This method is used to generate a random response.
+   * @param none
+   * @return none
+   */
+    
     public void randomResponse() {
         ArrayList<String> list=new ArrayList<String>();
         list.add("I don’t understand.");
@@ -187,10 +199,12 @@ public class Dovi extends JFrame {
         botSay(list.get(n));
     }
 
-    /**
-     * creates a new Dovi() object when program runs.
-     * see ctor for details.
-     */
+   /**
+   * This method creates a new Dovi() object when program runs.
+   * @param String[] args This runs the main method.
+   * @return none
+   */
+  
     public static void main(String[] args) throws InterruptedException {
         new Dovi();
         // bluej isnt very optimal so you LITERALLY
@@ -201,7 +215,9 @@ public class Dovi extends JFrame {
     }
 
     /**
-     * prompts the user for their username and password to login onto IC.
+     * This method prompts the user for their username and password to login onto IC.
+     * @param String[] args This runs the main method.
+     * @return none
      */
     public void login() {
         System.out.println("Please enter your username: ");
